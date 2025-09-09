@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wer hat es gesagt?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Roboto", sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0e0e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .quiz-container {
+      background: rgba(30, 30, 30, 0.8);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .title {
+      font-size: 4rem;
+      margin-bottom: 4rem;
+      color: #8e2de2;
+      text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+    }
+
+    .progress {
+      height: 10px;
+      background: #333;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #8e2de2, #4a00e0);
+      transition: width 0.4s ease;
+    }
+
+    .score {
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      color: #bbb;
+    }
+
+    .answers button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #2c2c54;
+      color: #e0e0e0;
+      transition: all 0.3s;
+    }
+
+    .answers button:hover:not([disabled]) {
+      background: #40407a;
+      box-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+    }
+
+    .answers button.correct {
+      background: #00c851 !important; /* kräftiges Grün */
+      color: white;
+      box-shadow: 0 0 10px rgba(0, 200, 81, 0.7);
+    }
+
+    .answers button.wrong {
+      background: #ff4444 !important; /* kräftiges Rot */
+      color: white;
+      box-shadow: 0 0 10px rgba(255, 68, 68, 0.7);
+    }
+
+    .explanation {
+      margin-top: 1rem;
+      font-style: italic;
+      min-height: 2rem;
+      color: #ddd;
+    }
+
+    .controls {
+      margin-top: 2rem;
+    }
+
+    .controls button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      color: white;
+      transition: transform 0.2s;
+    }
+
+    .controls button:hover {
+      transform: scale(1.05);
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container fade-in">
+    <h1 class="title">Zionist oder Nazi?</h1>
+    <h1 id="question">Frage lädt…</h1>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="score" id="score">Punktestand: 0</div>
+    <div class="answers" id="answers"></div>
+    <div class="explanation" id="explanation"></div>
+    <div class="controls">
+      <button id="nextBtn" style="display:none">Nächste Frage</button>
+      <button id="restartBtn" style="display:none">Neustart</button>
+    </div>
+  </div>
+
+  <script>
+    let quizData = [];
+    let currentIndex = 0;
+    let correctCount = 0;
+
+    const questionEl = document.getElementById("question");
+    const answersEl = document.getElementById("answers");
+    const explanationEl = document.getElementById("explanation");
+    const nextBtn = document.getElementById("nextBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const progressBar = document.getElementById("progressBar");
+    const scoreEl = document.getElementById("score");
+
+    async function loadQuizData() {
+      try {
+        const response = await fetch("questions.json");
+        quizData = await response.json();
+        loadQuestion();
+      } catch (e) {
+        questionEl.textContent = "Fehler beim Laden der Fragen.";
+        console.error(e);
+      }
+    }
+
+    function updateProgress() {
+      const percent = ((currentIndex) / quizData.length) * 100;
+      progressBar.style.width = percent + "%";
+    }
+
+    function updateScore() {
+      scoreEl.textContent = `Punktestand: ${correctCount}`;
+    }
+
+    function loadQuestion() {
+      updateProgress();
+      updateScore();
+
+      const q = quizData[currentIndex];
+      questionEl.innerHTML = q.question;
+      answersEl.innerHTML = "";
+      explanationEl.inner = "";
+      nextBtn.style.display = "none";
+
+      q.answers.forEach((answer, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.addEventListener("click", () => selectAnswer(btn, i));
+        answersEl.appendChild(btn);
+      });
+
+      document.querySelector(".quiz-container").classList.add("fade-in");
+    }
+
+    function selectAnswer(button, index) {
+      const q = quizData[currentIndex];
+      const buttons = answersEl.querySelectorAll("button");
+      buttons.forEach(b => b.disabled = true);
+
+      if (index === q.correct) {
+        button.classList.add("correct");
+        correctCount++;
+      } else {
+        button.classList.add("wrong");
+        buttons[q.correct].classList.add("correct");
+      }
+
+      updateScore();
+      explanationEl.innerHTML = q.explanation;
+
+      if (currentIndex < quizData.length - 1) {
+        nextBtn.style.display = "inline-block";
+      } else {
+        restartBtn.style.display = "inline-block";
+      }
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex++;
+      loadQuestion();
+    });
+
+    restartBtn.addEventListener("click", () => {
+      currentIndex = 0;
+      correctCount = 0;
+      restartBtn.style.display = "none";
+      loadQuestion();
+    });
+
+    loadQuizData();
+  </script>
+</body>
+</html>
