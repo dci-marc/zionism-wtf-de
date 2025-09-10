@@ -11,6 +11,8 @@
       --color-bg-dark: rgb(15, 32, 39);
       --color-bg-mid: rgb(32, 58, 67);
       --color-bg-light: rgb(44, 83, 100);
+      --color-surface-top: rgba(30, 30, 30, 0.8);
+      --color-surface-bottom: rgba(50, 50, 50, 0.8);
 
       --color-text: rgb(224, 224, 224);
       --color-text-light: rgb(255, 255, 255);
@@ -39,163 +41,196 @@
       --shadow-success: rgba(0, 200, 81, 0.7);
       --shadow-error: rgba(255, 68, 68, 0.7);
       --shadow-dark: rgba(0, 0, 0, 0.7);
-    }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
-      cursor: default;
-    }
+      /* light mode */
+      @media (prefers-color-scheme: light) {
+        :root {
+          --color-bg-dark: rgb(245, 245, 245);
+          --color-bg-mid: rgb(255, 255, 255);
+          --color-bg-light: rgb(230, 230, 230);
+          --color-surface-top: rgba(255, 255, 255, 0.8);
+          --color-surface-bottom: rgba(245, 245, 245, 0.8);
 
-    body {
-      font-family: "Roboto", sans-serif;
-      background: linear-gradient(135deg, var(--color-bg-dark), var(--color-bg-mid), var(--color-bg-light));
-      color: var(--color-text);
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-    }
+          --color-text: rgb(33, 33, 33);
+          --color-text-light: rgb(0, 0, 0);
+          --color-text-muted: rgb(85, 85, 85);
+          --color-text-dim: rgb(120, 120, 120);
+          --color-text-soft: rgb(100, 100, 100);
 
-    .quiz-container {
-      background: linear-gradient(180deg, rgba(30, 30, 30, 0.8), rgba(50, 50, 50, 0.8));
-      backdrop-filter: blur(8px);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 8px 30px var(--shadow-dark);
-      max-width: 600px;
-      width: 100%;
-      text-align: center;
-      margin: auto;
-    }
+          --color-primary: rgb(106, 13, 173);
+          --color-primary-dark: rgb(74, 0, 224);
 
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--color-text-light);
-    }
+          --color-btn-bg: rgb(240, 240, 255);
+          --color-btn-bg-hover: rgb(220, 220, 250);
 
-    .title {
-      font-size: 4rem;
-      margin-bottom: 4rem;
-      color: var(--color-primary);
-      text-shadow: 0 0 10px var(--shadow-primary);
-    }
+          --color-success: rgb(0, 180, 70);
+          --color-error: rgb(220, 50, 50);
 
-    .progress {
-      height: 10px;
-      background: var(--color-dark);
-      border-radius: 5px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
+          --color-dark: rgb(200, 200, 200);
 
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
-      transition: width 0.4s ease;
-    }
-
-    .score {
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      color: var(--color-text-muted);
-      cursor: default;
-    }
-
-    .answers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .answers button {
-      flex: 1;
-      min-width: 0;
-      margin: 0.5rem 0;
-      padding: 1rem;
-      border: none;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      background: var(--color-btn-bg);
-      color: var(--color-text);
-      transition: all 0.3s;
-    }
-
-    .answers button:hover:not([disabled]) {
-      background: var(--color-btn-bg-hover);
-      box-shadow: 0 0 8px var(--shadow-primary-soft);
-    }
-
-    .answers button.correct {
-      background: var(--color-success) !important;
-      color: var(--color-text-light);
-      box-shadow: 0 0 10px var(--shadow-success);
-    }
-
-    .answers button.wrong {
-      background: var(--color-error) !important;
-      color: var(--color-text-light);
-      box-shadow: 0 0 10px var(--shadow-error);
-    }
-
-    .explanation {
-      margin-top: 1rem;
-      font-style: italic;
-      min-height: 2rem;
-      color: var(--color-text-soft);
-    }
-
-    .controls {
-      margin-top: 2rem;
-    }
-
-    .controls button {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-      color: var(--color-text-light);
-      transition: transform 0.2s;
-    }
-
-    .controls button:hover {
-      transform: scale(1.05);
-    }
-
-    .credits {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: var(--color-text-dim);
-    }
-
-    .credits a {
-      color: var(--color-primary);
-      text-shadow: 0 0 10px var(--shadow-primary);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
+          --shadow-primary: rgba(106, 13, 173, 0.5);
+          --shadow-primary-soft: rgba(106, 13, 173, 0.3);
+          --shadow-success: rgba(0, 180, 70, 0.5);
+          --shadow-error: rgba(220, 50, 50, 0.5);
+          --shadow-dark: rgba(0, 0, 0, 0.2);
+        }
       }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        cursor: default;
       }
-    }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, var(--color-bg-dark), var(--color-bg-mid), var(--color-bg-light));
+        color: var(--color-text);
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+      }
+
+      .quiz-container {
+        background: linear-gradient(180deg, var(--color-surface-top), var(--color-surface-bottom));
+        backdrop-filter: blur(8px);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 8px 30px var(--shadow-dark);
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        margin: auto;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--color-text-light);
+      }
+
+      .title {
+        font-size: 4rem;
+        margin-bottom: 4rem;
+        color: var(--color-primary);
+        text-shadow: 0 0 10px var(--shadow-primary);
+      }
+
+      .progress {
+        height: 10px;
+        background: var(--color-dark);
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+        transition: width 0.4s ease;
+      }
+
+      .score {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        color: var(--color-text-muted);
+        cursor: default;
+      }
+
+      .answers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .answers button {
+        flex: 1;
+        min-width: 0;
+        margin: 0.5rem 0;
+        padding: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        background: var(--color-btn-bg);
+        color: var(--color-text);
+        transition: all 0.3s;
+      }
+
+      .answers button:hover:not([disabled]) {
+        background: var(--color-btn-bg-hover);
+        box-shadow: 0 0 8px var(--shadow-primary-soft);
+      }
+
+      .answers button.correct {
+        background: var(--color-success) !important;
+        color: var(--color-text-light);
+        box-shadow: 0 0 10px var(--shadow-success);
+      }
+
+      .answers button.wrong {
+        background: var(--color-error) !important;
+        color: var(--color-text-light);
+        box-shadow: 0 0 10px var(--shadow-error);
+      }
+
+      .explanation {
+        margin-top: 1rem;
+        font-style: italic;
+        min-height: 2rem;
+        color: var(--color-text-soft);
+      }
+
+      .controls {
+        margin-top: 2rem;
+      }
+
+      .controls button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        color: var(--color-text-light);
+        transition: transform 0.2s;
+      }
+
+      .controls button:hover {
+        transform: scale(1.05);
+      }
+
+      .credits {
+        margin-top: 2rem;
+        font-size: 0.8rem;
+        color: var(--color-text-dim);
+      }
+
+      .credits a {
+        color: var(--color-primary);
+        text-shadow: 0 0 10px var(--shadow-primary);
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
   </style>
 </head>
 
