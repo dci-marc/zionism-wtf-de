@@ -6,6 +6,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wer hat es gesagt?</title>
   <style>
+    :root {
+      /* base colors */
+      --color-bg-dark: rgb(15, 32, 39);
+      --color-bg-mid: rgb(32, 58, 67);
+      --color-bg-light: rgb(44, 83, 100);
+
+      --color-text: rgb(224, 224, 224);
+      --color-text-light: rgb(255, 255, 255);
+      --color-text-muted: rgb(187, 187, 187);
+      --color-text-dim: rgb(136, 136, 136);
+      --color-text-soft: rgb(221, 221, 221);
+
+      /* primary colors */
+      --color-primary: rgb(142, 45, 226);
+      --color-primary-dark: rgb(74, 0, 224);
+
+      /* buttons */
+      --color-btn-bg: rgb(44, 44, 84);
+      --color-btn-bg-hover: rgb(64, 64, 122);
+
+      /* status colors */
+      --color-success: rgb(0, 200, 81);
+      --color-error: rgb(255, 68, 68);
+
+      /* neutral colors */
+      --color-dark: rgb(51, 51, 51);
+
+      /* effects */
+      --shadow-primary: rgba(138, 43, 226, 0.7);
+      --shadow-primary-soft: rgba(138, 43, 226, 0.6);
+      --shadow-success: rgba(0, 200, 81, 0.7);
+      --shadow-error: rgba(255, 68, 68, 0.7);
+      --shadow-dark: rgba(0, 0, 0, 0.7);
+    }
+
     html,
     body {
       margin: 0;
@@ -16,8 +51,8 @@
 
     body {
       font-family: "Roboto", sans-serif;
-      background: linear-gradient(135deg, rgb(15, 32, 39), rgb(32, 58, 67), rgb(44, 83, 100));
-      color: #e0e0e0;
+      background: linear-gradient(135deg, var(--color-bg-dark), var(--color-bg-mid), var(--color-bg-light));
+      color: var(--color-text);
       display: flex;
       justify-content: center;
       min-height: 100vh;
@@ -28,7 +63,7 @@
       backdrop-filter: blur(8px);
       padding: 2rem;
       border-radius: 1rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 8px 30px var(--shadow-dark);
       max-width: 600px;
       width: 100%;
       text-align: center;
@@ -38,19 +73,19 @@
     h1 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
-      color: #fff;
+      color: var(--color-text-light);
     }
 
     .title {
       font-size: 4rem;
       margin-bottom: 4rem;
-      color: #8e2de2;
-      text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+      color: var(--color-primary);
+      text-shadow: 0 0 10px var(--shadow-primary);
     }
 
     .progress {
       height: 10px;
-      background: #333;
+      background: var(--color-dark);
       border-radius: 5px;
       margin-bottom: 1rem;
       overflow: hidden;
@@ -59,14 +94,14 @@
     .progress-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #8e2de2, #4a00e0);
+      background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
       transition: width 0.4s ease;
     }
 
     .score {
       font-size: 0.9rem;
       margin-bottom: 1.5rem;
-      color: #bbb;
+      color: var(--color-text-muted);
       cursor: default;
     }
 
@@ -85,33 +120,33 @@
       border-radius: 0.5rem;
       font-size: 1rem;
       cursor: pointer;
-      background: #2c2c54;
-      color: #e0e0e0;
+      background: var(--color-btn-bg);
+      color: var(--color-text);
       transition: all 0.3s;
     }
 
     .answers button:hover:not([disabled]) {
-      background: #40407a;
-      box-shadow: 0 0 8px rgba(138, 43, 226, 0.6);
+      background: var(--color-btn-bg-hover);
+      box-shadow: 0 0 8px var(--shadow-primary-soft);
     }
 
     .answers button.correct {
-      background: #00c851 !important;
-      color: white;
-      box-shadow: 0 0 10px rgba(0, 200, 81, 0.7);
+      background: var(--color-success) !important;
+      color: var(--color-text-light);
+      box-shadow: 0 0 10px var(--shadow-success);
     }
 
     .answers button.wrong {
-      background: #ff4444 !important;
-      color: white;
-      box-shadow: 0 0 10px rgba(255, 68, 68, 0.7);
+      background: var(--color-error) !important;
+      color: var(--color-text-light);
+      box-shadow: 0 0 10px var(--shadow-error);
     }
 
     .explanation {
       margin-top: 1rem;
       font-style: italic;
       min-height: 2rem;
-      color: #ddd;
+      color: var(--color-text-soft);
     }
 
     .controls {
@@ -124,8 +159,8 @@
       border-radius: 0.5rem;
       font-size: 1rem;
       cursor: pointer;
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      color: white;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      color: var(--color-text-light);
       transition: transform 0.2s;
     }
 
@@ -136,12 +171,12 @@
     .credits {
       margin-top: 2rem;
       font-size: 0.8rem;
-      color: #888;
+      color: var(--color-text-dim);
     }
 
     .credits a {
-      color: #8e2de2;
-      text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+      color: var(--color-primary);
+      text-shadow: 0 0 10px var(--shadow-primary);
       text-decoration: none;
       cursor: pointer;
     }
