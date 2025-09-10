@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -81,13 +82,13 @@
     }
 
     .answers button.correct {
-      background: #00c851 !important; /* kräftiges Grün */
+      background: #00c851 !important;
       color: white;
       box-shadow: 0 0 10px rgba(0, 200, 81, 0.7);
     }
 
     .answers button.wrong {
-      background: #ff4444 !important; /* kräftiges Rot */
+      background: #ff4444 !important;
       color: white;
       box-shadow: 0 0 10px rgba(255, 68, 68, 0.7);
     }
@@ -123,16 +124,26 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="quiz-container fade-in">
     <h1 class="title">Zionist oder Nazi?</h1>
     <h1 id="question">Frage lädt…</h1>
-    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
     <div class="score" id="score">Punktestand: 0</div>
     <div class="answers" id="answers"></div>
     <div class="explanation" id="explanation"></div>
@@ -146,6 +157,7 @@
     let quizData = [];
     let currentIndex = 0;
     let correctCount = 0;
+    let incorrectCount = 0;
 
     const questionEl = document.getElementById("question");
     const answersEl = document.getElementById("answers");
@@ -155,10 +167,18 @@
     const progressBar = document.getElementById("progressBar");
     const scoreEl = document.getElementById("score");
 
+    function shuffleQuestions(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
     async function loadQuizData() {
       try {
-        const response = await fetch("questions.json");
+        const response = await fetch("questions_de.json");
         quizData = await response.json();
+        shuffleQuestions(quizData);
         loadQuestion();
       } catch (e) {
         questionEl.textContent = "Fehler beim Laden der Fragen.";
@@ -172,7 +192,7 @@
     }
 
     function updateScore() {
-      scoreEl.textContent = `Punktestand: ${correctCount}`;
+      scoreEl.textContent = `✓ ${correctCount}  ✗ ${incorrectCount}`;
     }
 
     function loadQuestion() {
@@ -182,7 +202,7 @@
       const q = quizData[currentIndex];
       questionEl.innerHTML = q.question;
       answersEl.innerHTML = "";
-      explanationEl.inner = "";
+      explanationEl.innerHTML = "";
       nextBtn.style.display = "none";
 
       q.answers.forEach((answer, i) => {
@@ -206,6 +226,7 @@
       } else {
         button.classList.add("wrong");
         buttons[q.correct].classList.add("correct");
+        incorrectCount++;
       }
 
       updateScore();
@@ -233,4 +254,5 @@
     loadQuizData();
   </script>
 </body>
+
 </html>
