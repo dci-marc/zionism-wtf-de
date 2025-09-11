@@ -150,7 +150,7 @@
         cursor: default;
       }
 
-      .score > span {
+      .score>span {
         margin: 0 0.5rem;
         font-weight: bold;
       }
@@ -194,6 +194,7 @@
       }
 
       .explanation {
+        display: none;
         margin-top: 1rem;
         font-style: italic;
         min-height: 2rem;
@@ -201,6 +202,7 @@
       }
 
       .controls {
+        display: none;
         margin-top: 2rem;
       }
 
@@ -259,7 +261,7 @@
     <div class="score" id="score">Punktestand: 0</div>
     <div class="answers" id="answers"></div>
     <div class="explanation" id="explanation"></div>
-    <div class="controls">
+    <div class="controls" id="controls">
       <button id="nextBtn" style="display:none">Nächste Frage</button>
       <button id="restartBtn" style="display:none">Neustart</button>
     </div>
@@ -279,6 +281,7 @@
     const questionEl = document.getElementById("question");
     const answersEl = document.getElementById("answers");
     const explanationEl = document.getElementById("explanation");
+    const controlsEl = document.getElementById("controls");
     const nextBtn = document.getElementById("nextBtn");
     const restartBtn = document.getElementById("restartBtn");
     const progressBar = document.getElementById("progressBar");
@@ -320,7 +323,9 @@
       questionEl.innerHTML = q.question;
       answersEl.innerHTML = "";
       explanationEl.innerHTML = "";
+      explanationEl.style.display = "none";
       nextBtn.style.display = "none";
+      controlsEl.style.display = "none";
 
       q.answers.forEach((answer, i) => {
         const btn = document.createElement("button");
@@ -348,6 +353,8 @@
 
       updateScore();
       explanationEl.innerHTML = q.explanation;
+      explanationEl.style.display = "block";
+      controlsEl.style.display = "block";
 
       if (currentIndex < quizData.length - 1) {
         nextBtn.style.display = "inline-block";
