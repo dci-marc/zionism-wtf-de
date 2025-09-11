@@ -14,6 +14,7 @@
       --color-bg-light: rgb(44, 83, 100);
       --color-surface-top: rgba(30, 30, 30, 0.8);
       --color-surface-bottom: rgba(50, 50, 50, 0.8);
+      --color-surface-bright: rgba(50, 50, 50, 0.8);
 
       --color-text: rgb(224, 224, 224);
       --color-text-light: rgb(255, 255, 255);
@@ -42,41 +43,7 @@
       --shadow-success: rgba(0, 200, 81, 0.7);
       --shadow-error: rgba(255, 68, 68, 0.7);
       --shadow-dark: rgba(0, 0, 0, 0.7);
-
-      /* light mode */
-      @media (prefers-color-scheme: light) {
-        :root {
-          --color-bg-dark: rgb(245, 245, 245);
-          --color-bg-mid: rgb(255, 255, 255);
-          --color-bg-light: rgb(240, 240, 240);
-
-          --color-text: rgb(33, 33, 33);
-          --color-text-light: rgb(0, 0, 0);
-          --color-text-muted: rgb(85, 85, 85);
-          --color-text-dim: rgb(120, 120, 120);
-          --color-text-soft: rgb(100, 100, 100);
-
-          --color-primary: rgb(106, 13, 173);
-          --color-primary-dark: rgb(74, 0, 224);
-
-          --color-btn-bg: rgb(240, 240, 255);
-          --color-btn-bg-hover: rgb(220, 220, 250);
-
-          --color-success: rgb(0, 180, 70);
-          --color-error: rgb(220, 50, 50);
-
-          --color-dark: rgb(200, 200, 200);
-
-          --shadow-primary: rgba(106, 13, 173, 0.5);
-          --shadow-primary-soft: rgba(106, 13, 173, 0.3);
-          --shadow-success: rgba(0, 180, 70, 0.5);
-          --shadow-error: rgba(220, 50, 50, 0.5);
-          --shadow-dark: rgba(0, 0, 0, 0.15);
-
-          --color-surface-top: rgb(255, 255, 255);
-          --color-surface-bottom: rgb(250, 250, 250);
-        }
-      }
+      --shadow-light: rgba(90, 90, 90, 0.2);
 
       html,
       body {
@@ -215,9 +182,14 @@
       .explanation {
         display: none;
         margin-top: 1rem;
+        padding: 1rem;
         font-style: italic;
         min-height: 2rem;
         color: var(--color-text-soft);
+        background: var(--color-surface-bright);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--shadow-light);
+        border-radius: 1rem;
       }
 
       .controls {
@@ -262,7 +234,7 @@
 
       .credits a:hover {
         transform: scale(1.1);
-        color: var(--color-text-soft);
+        color: var(--color-text-light);
       }
 
       .fade-in {
