@@ -400,6 +400,11 @@
       explanationEl.style.display = "block";
       controlsEl.style.display = "block";
 
+      explanationEl.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
       if (currentIndex < quizData.length - 1) {
         showNextBtn();
       } else {
