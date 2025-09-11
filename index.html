@@ -193,6 +193,25 @@
         box-shadow: 0 0 10px var(--shadow-error);
       }
 
+      .nextBtn {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        padding: 0.75rem 1.25rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        color: var(--color-text-light);
+        box-shadow: 0 8px 24px var(--shadow-primary-soft);
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
       .explanation {
         display: none;
         margin-top: 1rem;
@@ -237,6 +256,18 @@
         animation: fadeIn 0.5s ease;
       }
 
+      .show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      .hide {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-50%) translateY(10px);
+      }
+
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -248,6 +279,7 @@
           transform: translateY(0);
         }
       }
+    }
   </style>
 </head>
 
@@ -262,7 +294,6 @@
     <div class="answers" id="answers"></div>
     <div class="explanation" id="explanation"></div>
     <div class="controls" id="controls">
-      <button id="nextBtn" style="display:none">Nächste Frage</button>
       <button id="restartBtn" style="display:none">Neustart</button>
     </div>
     <div class="credits">
@@ -271,6 +302,7 @@
       </p>
     </div>
   </div>
+  <button id="nextBtn" class="nextBtn hide" aria-hidden="true">Nächste Frage</button>
 
   <script>
     let quizData = [];
@@ -292,6 +324,18 @@
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
+    }
+
+    function showNextBtn() {
+      nextBtn.classList.add("show");
+      nextBtn.classList.remove("hide");
+      nextBtn.setAttribute("aria-hidden", "false");
+    }
+
+    function hideNextBtn() {
+      nextBtn.classList.add("hide");
+      nextBtn.classList.remove("show");
+      nextBtn.setAttribute("aria-hidden", "true");
     }
 
     async function loadQuizData() {
@@ -316,6 +360,7 @@
     }
 
     function loadQuestion() {
+      hideNextBtn();
       updateProgress();
       updateScore();
 
@@ -324,7 +369,6 @@
       answersEl.innerHTML = "";
       explanationEl.innerHTML = "";
       explanationEl.style.display = "none";
-      nextBtn.style.display = "none";
       controlsEl.style.display = "none";
 
       q.answers.forEach((answer, i) => {
@@ -357,7 +401,7 @@
       controlsEl.style.display = "block";
 
       if (currentIndex < quizData.length - 1) {
-        nextBtn.style.display = "inline-block";
+        showNextBtn();
       } else {
         restartBtn.style.display = "inline-block";
       }
