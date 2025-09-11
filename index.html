@@ -89,7 +89,7 @@
         color: var(--color-error);
       }
 
-      .symbol{
+      .symbol {
         font-size: 1.2rem;
       }
 
@@ -185,6 +185,22 @@
         background: var(--color-error) !important;
         color: var(--color-text-light);
         box-shadow: 0 0 10px var(--shadow-error);
+      }
+
+      .answers button.dice-btn {
+        flex: 0 0 auto;
+        aspect-ratio: 1 / 1;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .answers button.dice-btn>span {
+        font-size: 1.5rem;
+        line-height: 1;
+        transform: scale(1.5);
+        display: inline-block;
       }
 
       .nextBtn {
@@ -421,6 +437,17 @@
         btn.addEventListener("click", () => selectAnswer(btn, i));
         answersEl.appendChild(btn);
       });
+
+      const diceBtn = document.createElement("button");
+      diceBtn.innerHTML = "<span>⚄</span>";
+      diceBtn.classList.add("dice-btn");
+
+      diceBtn.addEventListener("click", () => {
+        const buttons = answersEl.querySelectorAll("button:not(.dice-btn)");
+        const randomIndex = Math.floor(Math.random() * buttons.length);
+        buttons[randomIndex].click();
+      });
+      answersEl.insertBefore(diceBtn, answersEl.children[1]);
 
       document.querySelector(".quiz-container").classList.add("fade-in");
     }
