@@ -89,10 +89,37 @@
         color: var(--color-error);
       }
 
+      .symbol{
+        font-size: 1.2rem;
+      }
+
       .title {
         font-size: 4rem;
         margin-bottom: 4rem;
         color: var(--color-primary);
+      }
+
+      .language-select {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      .language-select select {
+        padding: 0.3rem 0.3rem;
+        border-radius: 0.4rem;
+        background: var(--color-btn-bg);
+        color: var(--color-text);
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        box-shadow: 0 0 6px var(--shadow-light);
+        transition: background 0.2s ease;
+      }
+
+      .language-select select:hover {
+        background: var(--color-btn-bg-hover);
+        transform: scale(1.05);
       }
 
       .progress {
@@ -168,7 +195,7 @@
         padding: 0.75rem 1.25rem;
         border: none;
         border-radius: 0.5rem;
-        font-size: 1rem;
+        font-size: 1.5rem;
         cursor: pointer;
         background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
         color: var(--color-text-light);
@@ -201,7 +228,7 @@
         padding: 0.75rem 1.5rem;
         border: none;
         border-radius: 0.5rem;
-        font-size: 1rem;
+        font-size: 1.5rem;
         cursor: pointer;
         background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
         color: var(--color-text-light);
@@ -214,7 +241,7 @@
 
       .credits {
         margin-top: 2rem;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: var(--color-text-dim);
         display: flex;
         justify-content: center;
@@ -270,17 +297,31 @@
 
 <body>
   <div class="quiz-container fade-in">
+    <div class="language-select">
+      <select id="language">
+        <option value="de" selected>🇩🇪</option>
+        <option value="en">🇬🇧</option>
+      </select>
+    </div>
+
     <h1 class="title">Zionist oder Nazi?</h1>
+
     <h1 id="question">Frage lädt…</h1>
+
     <div class="progress">
       <div class="progress-bar" id="progressBar"></div>
     </div>
-    <div class="score" id="score">Punktestand: 0</div>
+
+    <div class="score" id="score"></div>
+
     <div class="answers" id="answers"></div>
+
     <div class="explanation" id="explanation"></div>
+
     <div class="controls" id="controls">
-      <button id="restartBtn" style="display:none">Neustart</button>
+      <button id="restartBtn" class="symbol" style="display:none">⟳</button>
     </div>
+
     <div class="credits">
       Credits: <a href="https://zionism.wtf/#zionist-or-nazi">zionism.wtf</a>
       <a href="https://github.com/dci-marc/zionism-wtf-de">
@@ -294,15 +335,17 @@
         0 1.6-.01 2.89-.01 3.28 0 .32.22.69.82.58A12.01 12.01 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
         </svg>
       </a>
+      <a class="symbol" href="https://world.internationalism.org/">☭</a>
     </div>
   </div>
-  <button id="nextBtn" class="nextBtn hide" aria-hidden="true">Nächste Frage</button>
+  <button id="nextBtn" class="nextBtn hide" aria-hidden="true">▶</button>
 
   <script>
     let quizData = [];
     let currentIndex = 0;
     let correctCount = 0;
     let incorrectCount = 0;
+    let currentLang = "de";
 
     const questionEl = document.getElementById("question");
     const answersEl = document.getElementById("answers");
@@ -312,6 +355,7 @@
     const restartBtn = document.getElementById("restartBtn");
     const progressBar = document.getElementById("progressBar");
     const scoreEl = document.getElementById("score");
+    const languageSelect = document.getElementById("language");
 
     function shuffleQuestions(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -332,11 +376,17 @@
       nextBtn.setAttribute("aria-hidden", "true");
     }
 
-    async function loadQuizData() {
+    async function loadQuizData(lang = "de") {
       try {
-        const response = await fetch("questions_de.json");
+        const response = await fetch(`questions_${lang}.json`);
         quizData = await response.json();
         shuffleQuestions(quizData);
+
+        currentIndex = 0;
+        correctCount = 0;
+        incorrectCount = 0;
+        restartBtn.style.display = "none";
+
         loadQuestion();
       } catch (e) {
         questionEl.textContent = "Fehler beim Laden der Fragen.";
@@ -419,7 +469,12 @@
       loadQuestion();
     });
 
-    loadQuizData();
+    languageSelect.addEventListener("change", (e) => {
+      currentLang = e.target.value;
+      loadQuizData(currentLang);
+    });
+
+    loadQuizData(currentLang);
   </script>
 </body>
 
