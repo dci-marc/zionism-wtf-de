@@ -195,7 +195,7 @@
 
       .nextBtn {
         position: fixed;
-        bottom: 2rem;
+        bottom: 1rem;
         left: 50%;
         transform: translateX(-50%) translateY(10px);
         padding: 0.75rem 1.25rem;
@@ -244,12 +244,25 @@
         margin-top: 2rem;
         font-size: 0.8rem;
         color: var(--color-text-dim);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
       }
 
       .credits a {
         color: var(--color-primary);
         text-decoration: none;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        transition: transform 0.2s ease, color 0.2s ease;
+        transform: scale(0.9);
+      }
+
+      .credits a:hover {
+        transform: scale(1.1);
+        color: var(--color-text-soft);
       }
 
       .fade-in {
@@ -297,9 +310,18 @@
       <button id="restartBtn" style="display:none">Neustart</button>
     </div>
     <div class="credits">
-      <p>
-        Credits: <a href="https://zionism.wtf/#zionist-or-nazi">zionism.wtf</a>
-      </p>
+      Credits: <a href="https://zionism.wtf/#zionist-or-nazi">zionism.wtf</a>
+      <a href="https://github.com/dci-marc/zionism-wtf-de">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58
+        0-.29-.01-1.05-.02-2.06-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.74.08-.74
+        1.21.09 1.85 1.24 1.85 1.24 1.08 1.85 2.83 1.32 3.52 1.01.11-.78.42-1.32.76-1.62-2.67-.3-5.47-1.34-5.47-5.95
+        0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55
+        3.3-1.23 3.3-1.23.66 1.64.24 2.86.12 3.16.77.84 1.24 1.91 1.24 3.22
+        0 4.62-2.8 5.65-5.48 5.95.43.37.81 1.1.81 2.22
+        0 1.6-.01 2.89-.01 3.28 0 .32.22.69.82.58A12.01 12.01 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+        </svg>
+      </a>
     </div>
   </div>
   <button id="nextBtn" class="nextBtn hide" aria-hidden="true">Nächste Frage</button>
