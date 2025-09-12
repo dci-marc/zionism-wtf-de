@@ -140,14 +140,15 @@
       }
 
       .score {
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
         color: var(--color-text-muted);
         cursor: default;
       }
 
       .score>span {
         margin: 0 0.5rem;
+        font-size: 1.3rem;
         font-weight: bold;
       }
 
@@ -314,7 +315,7 @@
       </select>
     </div>
 
-    <h1 class="title">Zionist? Nazi?</h1>
+    <h1 id="title" class="title">Zionist? Nazi?</h1>
 
     <h1 id="question">…</h1>
 
@@ -332,9 +333,9 @@
       <button id="restartBtn" class="symbol"><i class="fa-solid fa-rotate"></i></button>
     </div>
 
-    <div class="credits">
-      Credits: <a href="https://zionism.wtf/#zionist-or-nazi">zionism.wtf</a>
-      <a href="https://github.com/dci-marc/zionism-wtf-de">
+    <div id="credits" class="credits">
+      ##CREDITS##: <a href="https://zionism.wtf/#zionist-or-nazi">zionism.wtf</a>
+      <a class="symbol" href="https://github.com/dci-marc/zionism-wtf-de">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58
         0-.29-.01-1.05-.02-2.06-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.74.08-.74
@@ -357,6 +358,8 @@
     let incorrectCount = 0;
     let currentLang = "de";
 
+    const titleEl = document.getElementById("title");
+    const creditsEl = document.getElementById("credits");
     const questionEl = document.getElementById("question");
     const answersEl = document.getElementById("answers");
     const explanationEl = document.getElementById("explanation");
@@ -388,7 +391,7 @@
 
     async function loadQuizData(lang = "de") {
       try {
-        const response = await fetch(`questions_${lang}.json`);
+        const response = await fetch(`questions/questions_${lang}.json`);
         quizData = await response.json();
         shuffleQuestions(quizData);
 
@@ -399,7 +402,17 @@
 
         loadQuestion();
       } catch (e) {
-        questionEl.textContent = "Fehler beim Laden der Fragen.";
+        console.error(e);
+      }
+    }
+
+    async function loadDescriptions(lang = "de") {
+      try {
+        const response = await fetch(`descriptions/descriptions_${lang}.json`);
+        const descriptions = await response.json();
+        titleEl.textContent = descriptions.title;
+        creditsEl.innerHTML = creditsEl.innerHTML.replace("##CREDITS##", descriptions.credits);
+      } catch (e) {
         console.error(e);
       }
     }
@@ -410,7 +423,7 @@
     }
 
     function updateScore() {
-      scoreEl.innerHTML = `<span class="green">✓ ${correctCount}</span><span class="red">✗ ${incorrectCount}</span>`;
+      scoreEl.innerHTML = `<span class="green"><i class="fa-solid fa-square-check"></i> ${correctCount}</span><span class="red"><i class="fa-solid fa-square-xmark"></i> ${incorrectCount}</span>`;
     }
 
     function loadQuestion() {
@@ -448,15 +461,17 @@
 
     function selectAnswer(button, index) {
       const q = quizData[currentIndex];
-      const buttons = answersEl.querySelectorAll("button");
-      buttons.forEach(b => b.disabled = true);
+      const answerButtons = answersEl.querySelectorAll("button:not(.dice-btn)");
+      const allButtons = answersEl.querySelectorAll("button");
+
+      allButtons.forEach(b => b.disabled = true);
 
       if (index === q.correct) {
         button.classList.add("correct");
         correctCount++;
       } else {
         button.classList.add("wrong");
-        buttons[q.correct].classList.add("correct");
+        answerButtons[q.correct].classList.add("correct");
         incorrectCount++;
       }
 
@@ -465,10 +480,7 @@
       explanationEl.style.display = "block";
       controlsEl.style.display = "block";
 
-      explanationEl.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      explanationEl.scrollIntoView({ behavior: "smooth", block: "start" });
 
       if (currentIndex < quizData.length - 1) {
         showNextBtn();
@@ -492,9 +504,11 @@
 
     languageSelect.addEventListener("change", (e) => {
       currentLang = e.target.value;
+      loadDescriptions(currentLang);
       loadQuizData(currentLang);
     });
 
+    loadDescriptions(currentLang);
     loadQuizData(currentLang);
   </script>
 </body>
