@@ -4,310 +4,311 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <title>Zionist? Nazi?</title>
+  <title id="page-title">##TITLE##</title>
+  <link rel="icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
   <style>
+    /* ===== Variables ===== */
     :root {
-      /* base colors */
-      --color-bg-dark: rgb(15, 32, 39);
-      --color-bg-mid: rgb(32, 58, 67);
-      --color-bg-light: rgb(44, 83, 100);
-      --color-surface-top: rgba(30, 30, 30, 0.8);
-      --color-surface-bottom: rgba(50, 50, 50, 0.8);
-      --color-surface-bright: rgba(50, 50, 50, 0.8);
+      /* Backgrounds */
+      --bg-dark: rgb(15, 32, 39);
+      --bg-mid: rgb(32, 58, 67);
+      --bg-light: rgb(44, 83, 100);
 
-      --color-text: rgb(224, 224, 224);
-      --color-text-light: rgb(255, 255, 255);
-      --color-text-muted: rgb(187, 187, 187);
-      --color-text-dim: rgb(136, 136, 136);
-      --color-text-soft: rgb(221, 221, 221);
+      /* Surfaces */
+      --surface-top: rgba(30, 30, 30, 0.8);
+      --surface-bottom: rgba(50, 50, 50, 0.8);
+      --surface-bright: rgba(50, 50, 50, 0.8);
 
-      /* primary colors */
-      --color-primary: rgb(142, 45, 226);
-      --color-primary-dark: rgb(74, 0, 224);
+      /* Text */
+      --text-main: rgb(224, 224, 224);
+      --text-light: #fff;
+      --text-muted: rgb(187, 187, 187);
+      --text-dim: rgb(136, 136, 136);
+      --text-soft: rgb(221, 221, 221);
 
-      /* buttons */
-      --color-btn-bg: rgb(44, 44, 84);
-      --color-btn-bg-hover: rgb(64, 64, 122);
+      /* Brand */
+      --primary: rgb(142, 45, 226);
+      --primary-dark: rgb(74, 0, 224);
 
-      /* status colors */
-      --color-success: rgb(0, 200, 81);
-      --color-error: rgb(255, 68, 68);
+      /* Buttons */
+      --btn-bg: rgb(44, 44, 84);
+      --btn-bg-hover: rgb(64, 64, 122);
 
-      /* neutral colors */
-      --color-dark: rgb(51, 51, 51);
+      /* Status */
+      --success: rgb(0, 200, 81);
+      --error: rgb(255, 68, 68);
 
-      /* effects */
+      /* Effects */
+      --shadow-dark: rgba(0, 0, 0, 0.7);
+      --shadow-light: rgba(90, 90, 90, 0.2);
       --shadow-primary: rgba(138, 43, 226, 0.7);
       --shadow-primary-soft: rgba(138, 43, 226, 0.6);
       --shadow-success: rgba(0, 200, 81, 0.7);
       --shadow-error: rgba(255, 68, 68, 0.7);
-      --shadow-dark: rgba(0, 0, 0, 0.7);
-      --shadow-light: rgba(90, 90, 90, 0.2);
+    }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 100%;
-        cursor: default;
-      }
+    /* ===== Base ===== */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
 
-      body {
-        font-family: "Roboto", sans-serif;
-        text-shadow: 0 0 10px var(--shadow-primary);
-        background: linear-gradient(135deg, var(--color-bg-dark), var(--color-bg-mid), var(--color-bg-light));
-        color: var(--color-text);
-        display: flex;
-        justify-content: center;
-        min-height: 100vh;
-      }
+    body {
+      font-family: "Roboto", sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid), var(--bg-light));
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-shadow: 0 0 10px var(--shadow-primary);
+    }
 
-      .quiz-container {
-        background: linear-gradient(180deg, var(--color-surface-top), var(--color-surface-bottom));
-        backdrop-filter: blur(8px);
-        padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 8px 30px var(--shadow-dark);
-        max-width: 600px;
-        width: 100%;
-        text-align: center;
-        margin: auto;
-      }
+    .green {
+      color: var(--success);
+    }
 
-      h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: var(--color-text-light);
-      }
+    .red {
+      color: var(--error);
+    }
 
-      .green {
-        color: var(--color-success);
-      }
+    main.quiz {
+      background: linear-gradient(180deg, var(--surface-top), var(--surface-bottom));
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 30px var(--shadow-dark);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
 
-      .red {
-        color: var(--color-error);
-      }
+    h1.title {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+    }
 
-      .symbol {
-        font-size: 1.2rem;
-      }
+    h2.question {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
 
-      .title {
-        font-size: 4rem;
-        margin-bottom: 4rem;
-        color: var(--color-primary);
-      }
+    /* ===== Language selector ===== */
+    .language-select {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
 
-      .language-select {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
+    .language-select select {
+      padding: 0.3rem;
+      border-radius: 0.4rem;
+      background: var(--btn-bg);
+      color: var(--text-main);
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      box-shadow: 0 0 6px var(--shadow-light);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
 
-      .language-select select {
-        padding: 0.3rem 0.3rem;
-        border-radius: 0.4rem;
-        background: var(--color-btn-bg);
-        color: var(--color-text);
-        border: none;
-        cursor: pointer;
-        font-size: 0.9rem;
-        box-shadow: 0 0 6px var(--shadow-light);
-        transition: background 0.2s ease;
-      }
+    .language-select select:hover,
+    .language-select select:focus-visible {
+      background: var(--btn-bg-hover);
+      transform: scale(1.05);
+      outline: none;
+    }
 
-      .language-select select:hover {
-        background: var(--color-btn-bg-hover);
-        transform: scale(1.05);
-      }
+    /* ===== Progress ===== */
+    .progress {
+      height: 10px;
+      background: var(--surface-bright);
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
 
-      .progress {
-        height: 10px;
-        background: var(--color-dark);
-        border-radius: 5px;
-        margin-bottom: 1rem;
-        overflow: hidden;
-      }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      transition: width 0.4s ease;
+    }
 
-      .progress-bar {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
-        transition: width 0.4s ease;
-      }
+    /* ===== Answers ===== */
+    .answers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
 
-      .score {
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-        color: var(--color-text-muted);
-        cursor: default;
-      }
+    .answers button {
+      flex: 1;
+      min-width: 0;
+      padding: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: var(--btn-bg);
+      color: var(--text-main);
+      transition: all 0.3s;
+    }
 
-      .score>span {
-        margin: 0 0.5rem;
-        font-size: 1.3rem;
-        font-weight: bold;
-      }
+    .answers button:hover:not(:disabled),
+    .answers button:focus-visible:not(:disabled) {
+      background: var(--btn-bg-hover);
+      box-shadow: 0 0 8px var(--shadow-primary-soft);
+      outline: none;
+    }
 
-      .answers {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
+    .answers button.correct {
+      background: var(--success) !important;
+      color: var(--text-light);
+      box-shadow: 0 0 10px var(--shadow-success);
+    }
 
-      .answers button {
-        flex: 1;
-        min-width: 0;
-        margin: 0.5rem 0;
-        padding: 1rem;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        background: var(--color-btn-bg);
-        color: var(--color-text);
-        transition: all 0.3s;
-      }
+    .answers button.wrong {
+      background: var(--error) !important;
+      color: var(--text-light);
+      box-shadow: 0 0 10px var(--shadow-error);
+    }
 
-      .answers button:hover:not([disabled]) {
-        background: var(--color-btn-bg-hover);
-        box-shadow: 0 0 8px var(--shadow-primary-soft);
-      }
+    .answers button.dice-btn {
+      flex: 0 0 auto;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      .answers button.correct {
-        background: var(--color-success) !important;
-        color: var(--color-text-light);
-        box-shadow: 0 0 10px var(--shadow-success);
-      }
+    /* ===== Score & Controls ===== */
+    .score {
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+    }
 
-      .answers button.wrong {
-        background: var(--color-error) !important;
-        color: var(--color-text-light);
-        box-shadow: 0 0 10px var(--shadow-error);
-      }
+    .score span {
+      margin: 0 0.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 
-      .answers button.dice-btn {
-        flex: 0 0 auto;
-        aspect-ratio: 1 / 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+    .controls {
+      margin-top: 2rem;
+      display: none;
+    }
 
-      .nextBtn {
-        position: fixed;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%) translateY(10px);
-        padding: 0.75rem 1.25rem;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1.5rem;
-        cursor: pointer;
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: var(--color-text-light);
-        box-shadow: 0 8px 24px var(--shadow-primary-soft);
-        z-index: 9999;
+    .controls button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--text-light);
+      transition: transform 0.2s;
+    }
+
+    .controls button:hover,
+    .controls button:focus-visible {
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* ===== Explanation ===== */
+    .explanation {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      font-style: italic;
+      min-height: 2rem;
+      color: var(--text-soft);
+      background: var(--surface-bright);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--shadow-light);
+      border-radius: 1rem;
+      text-align: left;
+    }
+
+    /* ===== Floating next button ===== */
+    .next-btn {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--text-light);
+      box-shadow: 0 8px 24px var(--shadow-primary-soft);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 100;
+    }
+
+    .next-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ===== Credits ===== */
+    footer.credits {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .credits a {
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .credits a:hover,
+    .credits a:focus-visible {
+      transform: scale(1.1);
+      color: var(--text-light);
+      outline: none;
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+      from {
         opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        transform: translateY(10px);
       }
 
-      .explanation {
-        display: none;
-        margin-top: 1rem;
-        padding: 1rem;
-        font-style: italic;
-        min-height: 2rem;
-        color: var(--color-text-soft);
-        background: var(--color-surface-bright);
-        backdrop-filter: blur(8px);
-        border: 1px solid var(--shadow-light);
-        border-radius: 1rem;
-      }
-
-      .controls {
-        display: none;
-        margin-top: 2rem;
-      }
-
-      .controls button {
-        padding: 0.75rem 1.5rem;
-        border: none;
-        border-radius: 0.5rem;
-        font-size: 1.5rem;
-        cursor: pointer;
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: var(--color-text-light);
-        transition: transform 0.2s;
-      }
-
-      .controls button:hover {
-        transform: scale(1.05);
-      }
-
-      .credits {
-        margin-top: 2rem;
-        font-size: 0.9rem;
-        color: var(--color-text-dim);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .credits a {
-        color: var(--color-primary);
-        text-decoration: none;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        transition: transform 0.2s ease, color 0.2s ease;
-        transform: scale(0.9);
-      }
-
-      .credits a:hover {
-        transform: scale(1.1);
-        color: var(--color-text-light);
-      }
-
-      .fade-in {
-        animation: fadeIn 0.5s ease;
-      }
-
-      .show {
+      to {
         opacity: 1;
-        pointer-events: auto;
-        transform: translateX(-50%) translateY(0);
-      }
-
-      .hide {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(-50%) translateY(10px);
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        transform: translateY(0);
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="quiz-container fade-in">
+  <main class="quiz" role="main">
     <div class="language-select">
       <select id="language">
         <option value="de" selected>🇩🇪</option>
@@ -315,49 +316,46 @@
       </select>
     </div>
 
-    <h1 id="title" class="title">Zionist? Nazi?</h1>
-
-    <h1 id="question">…</h1>
+    <h1 class="title" id="title">Zionist? Nazi?</h1>
+    <h2 class="question" id="question">…</h2>
 
     <div class="progress">
       <div class="progress-bar" id="progressBar"></div>
     </div>
 
     <div class="score" id="score"></div>
-
     <div class="answers" id="answers"></div>
-
     <div class="explanation" id="explanation"></div>
 
     <div class="controls" id="controls">
-      <button id="restartBtn" class="symbol"><i class="fa-solid fa-rotate"></i></button>
+      <button id="restartBtn">
+        <i class="fa-solid fa-rotate"></i>
+      </button>
     </div>
 
-    <div id="credits" class="credits">
+    <footer class="credits" id="credits">
       ##CREDITS##: <a href="https://zionism.wtf/#zionist-or-nazi">zionism.wtf</a>
-      <a class="symbol" href="https://github.com/dci-marc/zionism-wtf-de">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58
-        0-.29-.01-1.05-.02-2.06-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.1-.76.08-.74.08-.74
-        1.21.09 1.85 1.24 1.85 1.24 1.08 1.85 2.83 1.32 3.52 1.01.11-.78.42-1.32.76-1.62-2.67-.3-5.47-1.34-5.47-5.95
-        0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55
-        3.3-1.23 3.3-1.23.66 1.64.24 2.86.12 3.16.77.84 1.24 1.91 1.24 3.22
-        0 4.62-2.8 5.65-5.48 5.95.43.37.81 1.1.81 2.22
-        0 1.6-.01 2.89-.01 3.28 0 .32.22.69.82.58A12.01 12.01 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-        </svg>
+      <a href="https://github.com/dci-marc/zionism-wtf-de" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
       </a>
-      <a class="symbol" href="https://world.internationalism.org/">☭</a>
-    </div>
-  </div>
-  <button id="nextBtn" class="nextBtn hide" aria-hidden="true">▶</button>
+      <a href="https://world.internationalism.org/" aria-label="Internationalism">☭</a>
+    </footer>
+  </main>
+
+  <button id="nextBtn" class="next-btn" aria-hidden="true">▶</button>
 
   <script>
+    "use strict";
+
+    // ===== State =====
     let quizData = [];
     let currentIndex = 0;
     let correctCount = 0;
     let incorrectCount = 0;
     let currentLang = "de";
 
+    // ===== Cached DOM =====
+    const pageTitleEl = document.getElementById("page-title");
     const titleEl = document.getElementById("title");
     const creditsEl = document.getElementById("credits");
     const questionEl = document.getElementById("question");
@@ -370,30 +368,42 @@
     const scoreEl = document.getElementById("score");
     const languageSelect = document.getElementById("language");
 
-    function shuffleQuestions(array) {
-      for (let i = array.length - 1; i > 0; i--) {
+    // ===== Utils =====
+    const shuffleArray = arr => {
+      for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-    }
+    };
 
-    function showNextBtn() {
+    const showNextBtn = () => {
       nextBtn.classList.add("show");
-      nextBtn.classList.remove("hide");
       nextBtn.setAttribute("aria-hidden", "false");
-    }
+    };
 
-    function hideNextBtn() {
-      nextBtn.classList.add("hide");
+    const hideNextBtn = () => {
       nextBtn.classList.remove("show");
       nextBtn.setAttribute("aria-hidden", "true");
-    }
+    };
 
+    const updateProgress = () => {
+      const percent = (currentIndex / quizData.length) * 100;
+      progressBar.style.width = `${percent}%`;
+    };
+
+    const updateScore = () => {
+      scoreEl.innerHTML = `
+        <span class="green"><i class="fa-solid fa-square-check"></i> ${correctCount}</span>
+        <span class="red"><i class="fa-solid fa-square-xmark"></i> ${incorrectCount}</span>
+      `;
+    };
+
+    // ===== Data loading =====
     async function loadQuizData(lang = "de") {
       try {
-        const response = await fetch(`questions/questions_${lang}.json`);
-        quizData = await response.json();
-        shuffleQuestions(quizData);
+        const res = await fetch(`questions/questions_${lang}.json`);
+        quizData = await res.json();
+        shuffleArray(quizData);
 
         currentIndex = 0;
         correctCount = 0;
@@ -401,32 +411,27 @@
         restartBtn.style.display = "none";
 
         loadQuestion();
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error("Failed to load quiz data:", err);
       }
     }
 
     async function loadDescriptions(lang = "de") {
       try {
-        const response = await fetch(`descriptions/descriptions_${lang}.json`);
-        const descriptions = await response.json();
-        titleEl.textContent = descriptions.title;
-        creditsEl.innerHTML = creditsEl.innerHTML.replace("##CREDITS##", descriptions.credits);
-      } catch (e) {
-        console.error(e);
+        const res = await fetch(`descriptions/descriptions_${lang}.json`);
+        const desc = await res.json();
+        pageTitleEl.textContent = desc.title;
+        titleEl.textContent = desc.title;
+        creditsEl.innerHTML = creditsEl.innerHTML.replace("##CREDITS##", desc.credits);
+      } catch (err) {
+        console.error("Failed to load descriptions:", err);
       }
     }
 
-    function updateProgress() {
-      const percent = ((currentIndex) / quizData.length) * 100;
-      progressBar.style.width = percent + "%";
-    }
-
-    function updateScore() {
-      scoreEl.innerHTML = `<span class="green"><i class="fa-solid fa-square-check"></i> ${correctCount}</span><span class="red"><i class="fa-solid fa-square-xmark"></i> ${incorrectCount}</span>`;
-    }
-
+    // ===== Quiz logic =====
     function loadQuestion() {
+      if (!quizData.length) return;
+
       hideNextBtn();
       updateProgress();
       updateScore();
@@ -434,7 +439,6 @@
       const q = quizData[currentIndex];
       questionEl.innerHTML = q.question;
       answersEl.innerHTML = "";
-      explanationEl.innerHTML = "";
       explanationEl.style.display = "none";
       controlsEl.style.display = "none";
 
@@ -445,18 +449,17 @@
         answersEl.appendChild(btn);
       });
 
+      // Dice button
       const diceBtn = document.createElement("button");
       diceBtn.innerHTML = '<i class="fa-solid fa-dice"></i>';
       diceBtn.classList.add("dice-btn");
-
       diceBtn.addEventListener("click", () => {
         const buttons = answersEl.querySelectorAll("button:not(.dice-btn)");
+        if (!buttons.length) return;
         const randomIndex = Math.floor(Math.random() * buttons.length);
         buttons[randomIndex].click();
       });
       answersEl.insertBefore(diceBtn, answersEl.children[1]);
-
-      document.querySelector(".quiz-container").classList.add("fade-in");
     }
 
     function selectAnswer(button, index) {
@@ -471,7 +474,7 @@
         correctCount++;
       } else {
         button.classList.add("wrong");
-        answerButtons[q.correct].classList.add("correct");
+        answerButtons[q.correct]?.classList.add("correct");
         incorrectCount++;
       }
 
@@ -479,7 +482,6 @@
       explanationEl.innerHTML = q.explanation;
       explanationEl.style.display = "block";
       controlsEl.style.display = "block";
-
       explanationEl.scrollIntoView({ behavior: "smooth", block: "start" });
 
       if (currentIndex < quizData.length - 1) {
@@ -489,6 +491,7 @@
       }
     }
 
+    // ===== Event bindings =====
     nextBtn.addEventListener("click", () => {
       currentIndex++;
       loadQuestion();
@@ -502,12 +505,13 @@
       loadQuestion();
     });
 
-    languageSelect.addEventListener("change", (e) => {
+    languageSelect.addEventListener("change", e => {
       currentLang = e.target.value;
       loadDescriptions(currentLang);
       loadQuizData(currentLang);
     });
 
+    // ===== Init =====
     loadDescriptions(currentLang);
     loadQuizData(currentLang);
   </script>
