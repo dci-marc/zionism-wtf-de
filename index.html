@@ -213,8 +213,12 @@
 
     .score span {
       margin: 0 0.5rem;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: bold;
+    }
+
+    .score span>i {
+      margin-right: 0.3rem;
     }
 
     .controls {
@@ -412,8 +416,8 @@
 
     const updateScore = () => {
       scoreEl.innerHTML = `
-        <span class="green"><i class="fa-solid fa-square-check"></i> ${correctCount}</span>
-        <span class="red"><i class="fa-solid fa-square-xmark"></i> ${incorrectCount}</span>
+        <span class="green"><i class="mdi mdi-check-circle"></i> ${correctCount}</span>
+        <span class="red"><i class="mdi mdi-close-circle"></i> ${incorrectCount}</span>
       `;
     };
 
