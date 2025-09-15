@@ -316,7 +316,7 @@
       </select>
     </div>
 
-    <h1 class="title" id="title">Zionist? Nazi?</h1>
+    <h1 class="title" id="title"></h1>
     <h2 class="question" id="question">…</h2>
 
     <div class="progress">
@@ -460,6 +460,8 @@
         buttons[randomIndex].click();
       });
       answersEl.insertBefore(diceBtn, answersEl.children[1]);
+
+      titleEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function selectAnswer(button, index) {
