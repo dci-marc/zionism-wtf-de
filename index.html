@@ -78,7 +78,7 @@
     }
 
     .symbol {
-      font-size: 1.2rem;
+      font-size: 0.7rem;
     }
 
     main.quiz {
@@ -185,6 +185,16 @@
       background: var(--error) !important;
       color: var(--text-light);
       box-shadow: 0 0 10px var(--shadow-error);
+    }
+
+    .mdi {
+      display: inline-block;
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+      line-height: 1.2em;
+      transform: scale(1.7);
+      transform-origin: center center;
     }
 
     .answers button.dice-btn {
@@ -460,7 +470,7 @@
 
       // Dice button
       const diceBtn = document.createElement("button");
-      diceBtn.innerHTML = '<i class="fa-solid fa-dice"></i>';
+      diceBtn.innerHTML = '<i class="mdi mdi-dice-multiple"></i>';
       diceBtn.classList.add("dice-btn");
       diceBtn.addEventListener("click", () => {
         const buttons = answersEl.querySelectorAll("button:not(.dice-btn)");
