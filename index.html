@@ -422,7 +422,7 @@
     };
 
     // ===== Data loading =====
-    async function loadQuizData(lang = "de") {
+    const loadQuizData = async (lang = "de") => {
       try {
         const res = await fetch(`questions/questions_${lang}.json`);
         quizData = await res.json();
@@ -439,7 +439,7 @@
       }
     }
 
-    async function loadDescriptions(lang = "de") {
+    const loadDescriptions = async (lang = "de") => {
       try {
         const res = await fetch(`descriptions/descriptions_${lang}.json`);
         const desc = await res.json();
@@ -452,7 +452,7 @@
     }
 
     // ===== Quiz logic =====
-    function loadQuestion() {
+    const loadQuestion = () => {
       if (!quizData.length) return;
 
       hideNextBtn();
@@ -487,7 +487,7 @@
       titleEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    function selectAnswer(button, index) {
+    const selectAnswer = (button, index) => {
       const q = quizData[currentIndex];
       const answerButtons = answersEl.querySelectorAll("button:not(.dice-btn)");
       const allButtons = answersEl.querySelectorAll("button");
